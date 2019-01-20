@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './App.css';
 
+import Playfield from './app/playfield';
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,14 @@ class App extends Component {
             <div className="view">
               <h2>Welcome to Silly Cardgame!</h2>
               <button onClick={this.handleClick}>Start Game</button>
+            </div>
+          )
+
+        case "game":
+          return (
+            <div className="view">
+              <h2>Find 2 identical cards</h2>
+              <Playfield />
             </div>
           )
 
