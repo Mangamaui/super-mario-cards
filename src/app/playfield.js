@@ -13,53 +13,20 @@ class Playfield extends React.Component {
 
     this.state = {
       cardList: [],
-      selectedCards: []
     };
-    this.setup();
+
+    this.createCardList();
   }
 
-  getRandom(max) {
-     return Math.floor(Math.random() * Math.floor(max));
-  }
+  createCardList() {
 
-
-  setup() {
-    const cardLimit = 18;
-    let signLimit = 6;
-
-    const cardTypes = [
-      ["flower",  4],
-      ["mushroom", 4],
-      ["star", 4],
-      ["life", 2],
-      ["coin10", 2],
-      ["coin20", 2]
-    ];
-
-    for(let i = 0; i < cardLimit; i++ ) {
-      let n = this.getRandom(signLimit);
-
-      let sign = cardTypes[n][0];
-      const card = {
-        id: `id${i}`,
-        sign: sign,
-        pos: i,
-        state: 0
-      }
+    for(let i = 0; i < this.props.cardList.length; i++ ) {
+      const card = this.props.cardList[i];
 
       const temp = <Card key={"k"+ i} id={card.id} cardHandler={this.cardHandler}
         sign={card.sign} pos={card.pos} state={card.state} />
 
       this.state.cardList.push(temp);
-      this.props.actions.addCard(card);
-
-      cardTypes[n][1] -=1;
-
-      if(cardTypes[n][1] === 0) {
-        cardTypes.splice(n, 1);
-        signLimit -=1;
-      }
-
     }
 
   }
@@ -69,7 +36,7 @@ class Playfield extends React.Component {
 
     const currentSelectedCard = e.currentTarget.id;
     const previousSelectedCard = this.props.previousSelectedCard;
-    console.log(previousSelectedCard);
+    console.log(currentSelectedCard, previousSelectedCard);
 
     if(!previousSelectedCard) {
       this.props.actions.updateSelectedCard(currentSelectedCard);
@@ -100,6 +67,7 @@ class Playfield extends React.Component {
   }
 
   render() {
+
     return (
       <div className="playfield">
         {this.state.cardList}
