@@ -14,16 +14,16 @@ class Playfield extends React.Component {
     this.state = {
       cardList: [],
     };
-
-    this.createCardList();
   }
 
   createCardList() {
+    this.state.cardList.splice(0);
 
     for(let i = 0; i < this.props.cardList.length; i++ ) {
       const card = this.props.cardList[i];
+      const s = Math.floor(Date.now() / 1000);
 
-      const temp = <Card key={"k"+ i} id={card.id} cardHandler={this.cardHandler}
+      const temp = <Card key={"kc"+ i +s} id={card.id} cardHandler={this.cardHandler}
         sign={card.sign} pos={card.pos} state={card.state} />
 
       this.state.cardList.push(temp);
@@ -35,27 +35,17 @@ class Playfield extends React.Component {
     e.preventDefault();
 
     const currentSelectedCard = e.currentTarget.id;
-    const previousSelectedCard = this.props.previousSelectedCard;
-    console.log(currentSelectedCard, previousSelectedCard);
+    console.log(currentSelectedCard);
 
-    if(!previousSelectedCard) {
-      this.props.actions.updateSelectedCard(currentSelectedCard);
-    } else {
-      if(previousSelectedCard !== currentSelectedCard) {
-        this.compareCards(previousSelectedCard, currentSelectedCard);
+    if(this.props.selectedCards.length < 1) {
+      this.props.actions.updateSelectedCards(currentSelectedCard);
+    } else if(this.props.selectedCards.length === 1) {
+      if(this.props.selectedCards[0] !== currentSelectedCard) {
+        this.props.actions.updateSelectedCards(currentSelectedCard);
       }
     }
   }
 
-  compareCards(id1, id2) {
-    const card1 = this.getCardData(id1);
-    const card2 = this.getCardData(id2);
-
-    if(card1.sign === card2.sign) {
-      this.props.actions.updateCard(id1);
-      this.props.actions.updateCard(id2);
-    }
-  }
 
   /**
   *   getPlayerData returns the player object based on a matching ID
@@ -67,6 +57,7 @@ class Playfield extends React.Component {
   }
 
   render() {
+    this.createCardList();
 
     return (
       <div className="playfield">
@@ -75,13 +66,12 @@ class Playfield extends React.Component {
     )
   }
 
-
 }
 
 function mapStateToProps(state) {
   return {
     cardList: state.cardList,
-    previousSelectedCard: state.previousSelectedCard
+    selectedCards: state.selectedCards
   }
 }
 

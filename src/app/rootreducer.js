@@ -2,21 +2,21 @@ import {
   CREATE_GAME,
   CREATE_CARDLIST,
   TOGGLE_CARD,
-  UPDATE_CARD,
-  UPDATE_SELECTED_CARD,
-  CLEAR_SELECTED_CARD
+  UPDATE_CARDS,
+  UPDATE_SELECTED_CARDS,
+  CLEAR_SELECTED_CARDS
   } from './actionTypes';
 import { CARD_TYPES, CARD_STATES } from './constants';
 
 const initialState = {
   view: "start",
+  gameState: "",
   playerMode: null,
-  previousSelectedCard: null,
+  selectedCards: [],
   cardList: generateCardList()
 }
 
 const rootReducer = (state = initialState, action) => {
-  //let cardList;
 
   switch (action.type) {
 
@@ -28,6 +28,7 @@ const rootReducer = (state = initialState, action) => {
       return {...initialState};
 
     case CREATE_CARDLIST:
+      console.log("create cardlist");
       const cardList = generateCardList();
       return {...state, cardList: cardList};
 
@@ -40,27 +41,32 @@ const rootReducer = (state = initialState, action) => {
             : {...card, state: CARD_STATES.HIDDEN })
           : card
       });
-      console.table(tempCardList);
+
 
       return {...state, cardList: tempCardList};
 
-    case UPDATE_CARD:
-      console.log("update card");
+    case UPDATE_CARDS:
+      console.log("update cards");
       const newCardList = state.cardList.map(card => {
-        return (card.id === action.payload)
+        return (card.id === state.selectedCards[0]
+            || card.id === state.selectedCards[1])
           ? { ...card, state: CARD_STATES.INACTIVE }
           : card
       });
+      console.table(newCardList);
 
       return {...state, cardList: newCardList};
 
-    case UPDATE_SELECTED_CARD:
-      console.log("update previous selected cards");
-      return {...state, previousSelectedCard: action.payload};
+    case UPDATE_SELECTED_CARDS:
+      console.log("update selected cards");
+      const newSelectedCardList = [...state.selectedCards]
+      newSelectedCardList.push(action.payload);
+      return {...state, selectedCards: newSelectedCardList};
 
-    case CLEAR_SELECTED_CARD:
-      console.log("cleared previous selected card");
-      return {...state, previousSelectedCard: null};
+    case CLEAR_SELECTED_CARDS:
+      console.log("cleared selected cards");
+      const emptyArray = []
+      return {...state, selectedCards: emptyArray};
 
     default:
        return state;
