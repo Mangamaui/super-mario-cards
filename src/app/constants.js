@@ -12,3 +12,9 @@ export const CARD_TYPES = [
   ["coin10", 2],
   ["coin20", 2]
 ];
+
+export const GAME_STATES = {
+  IN_PROGRESS: "inProgress",
+  GAME_OVER: "gameOver",
+  GAME_WON: "gameWon"
+}
