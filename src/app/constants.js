@@ -14,7 +14,19 @@ export const CARD_TYPES = [
 ];
 
 export const GAME_STATES = {
+  START: "start",
   IN_PROGRESS: "inProgress",
   GAME_OVER: "gameOver",
   GAME_WON: "gameWon"
+}
+
+export const GAME_DIFFICULTY = {
+  EASY: "easy",
+  MEDIUM: "medium",
+  HARD: "hard"
+}
+
+export const MAX_ATTEMPTS = {
+  medium: 5,
+  hard: 3
 }
