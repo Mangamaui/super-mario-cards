@@ -1,17 +1,26 @@
 import {
   CREATE_GAME,
+  SET_GAME_DIFFICULTY,
+  UPDATE_GAME_STATE,
+  UPDATE_ATTEMPTS,
   CREATE_CARDLIST,
-  TOGGLE_CARD,
+  FLIP_CARDS,
   UPDATE_CARDS,
-  UPDATE_SELECTED_CARDS,
+  ADD_SELECTED_CARD,
   CLEAR_SELECTED_CARDS
   } from './actionTypes';
-import { CARD_TYPES, CARD_STATES } from './constants';
+
+import {
+  CARD_TYPES,
+  CARD_STATES,
+  GAME_STATES,
+  GAME_DIFFICULTY
+  } from './constants';
 
 const initialState = {
-  view: "start",
-  gameState: "",
-  playerMode: null,
+  gameDifficulty: GAME_DIFFICULTY.EASY,
+  gameState: GAME_STATES.START,
+  attempts: 0,
   selectedCards: [],
   cardList: generateCardList()
 }
@@ -27,23 +36,35 @@ const rootReducer = (state = initialState, action) => {
       console.log("create game");
       return {...initialState};
 
+    case SET_GAME_DIFFICULTY:
+      console.log("set game difficulty");
+      const difficulty = action.payload;
+      return {...state, gameDifficulty: difficulty};
+
+    case UPDATE_GAME_STATE:
+      console.log("update game state");
+      return {...state, gameState: action.payload};
+
+    case UPDATE_ATTEMPTS:
+      console.log("update attempts");
+      const attempts = state.attempts + 1;
+      return {...state, attempts: attempts};
+
     case CREATE_CARDLIST:
       console.log("create cardlist");
       const cardList = generateCardList();
       return {...state, cardList: cardList};
 
-    case TOGGLE_CARD:
-    console.log("toggle card");
-      const tempCardList = state.cardList.map(card => {
-      return (card.id === action.payload)
-        ? (card.state === CARD_STATES.HIDDEN
-          ? { ...card, state: CARD_STATES.VISIBLE }
-            : {...card, state: CARD_STATES.HIDDEN })
+    case FLIP_CARDS:
+      console.log("flip cards");
+      const flippedCards =  state.cardList.map(card => {
+        return (card.id === state.selectedCards[0]
+            || card.id === state.selectedCards[1])
+          ? { ...card, state: CARD_STATES.HIDDEN }
           : card
       });
 
-
-      return {...state, cardList: tempCardList};
+      return {...state, cardList: flippedCards};
 
     case UPDATE_CARDS:
       console.log("update cards");
@@ -53,15 +74,28 @@ const rootReducer = (state = initialState, action) => {
           ? { ...card, state: CARD_STATES.INACTIVE }
           : card
       });
-      console.table(newCardList);
 
       return {...state, cardList: newCardList};
 
-    case UPDATE_SELECTED_CARDS:
-      console.log("update selected cards");
+    case ADD_SELECTED_CARD:
+      console.log("add a selected card");
+
+      // add the id of the selected card to the selectedCardsList
       const newSelectedCardList = [...state.selectedCards]
       newSelectedCardList.push(action.payload);
-      return {...state, selectedCards: newSelectedCardList};
+
+      // update the state of the card that was selected
+      const tempCardList1 = state.cardList.map(card => {
+        return (card.id === action.payload) ?
+          { ...card, state: CARD_STATES.VISIBLE }
+          : card
+        });
+
+      return {...state
+        ,selectedCards: newSelectedCardList
+        ,cardList: tempCardList1
+
+      };
 
     case CLEAR_SELECTED_CARDS:
       console.log("cleared selected cards");
@@ -89,7 +123,6 @@ function generateCardList() {
   const cardLimit = 18;
   let signLimit = 6;
   const list = [];
-
 
 
   for(let i = 0; i < cardLimit; i++ ) {

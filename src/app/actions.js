@@ -1,11 +1,21 @@
 import {
   CREATE_GAME,
-  CREATE_CARDLIST,
-  TOGGLE_CARD,
+  SET_GAME_DIFFICULTY,
+  UPDATE_GAME_STATE,
+  UPDATE_ATTEMPTS,
+  FLIP_CARDS,
   UPDATE_CARDS,
-  UPDATE_SELECTED_CARDS,
+  ADD_SELECTED_CARD,
   CLEAR_SELECTED_CARDS
   } from './actionTypes';
+
+import {
+  CARD_STATES,
+  GAME_STATES,
+  GAME_DIFFICULTY,
+  MAX_ATTEMPTS
+  } from './constants';
+
 
 export function createGame() {
   return {
@@ -13,79 +23,112 @@ export function createGame() {
   }
 }
 
-export function createCardList() {
+export function setGameDifficulty(difficulty) {
   return {
-    type: CREATE_CARDLIST,
+    type: SET_GAME_DIFFICULTY,
+    payload: difficulty
   }
 }
 
-export function toggleCard(id) {
+export function updateGameState(gameState) {
   return {
-    type: TOGGLE_CARD,
-    payload: id
-  }
-}
-
-export function updateCards(id) {
-  return {
-    type: UPDATE_CARDS,
-    payload: id
+    type: UPDATE_GAME_STATE,
+    payload: gameState
   }
 }
 
 export function updateSelectedCards(id) {
   return (dispatch, getState) => {
+
     dispatch({
-      type: TOGGLE_CARD,
+      type: ADD_SELECTED_CARD,
       payload: id
     });
 
-    dispatch({
-      type: UPDATE_SELECTED_CARDS,
-      payload: id
-    });
+    if(getState().selectedCards.length === 2) {
+      setTimeout(() => {
+        let attempts = getState().attempts;
+        let gameDifficulty = getState().gameDifficulty;
 
-    setTimeout(() => {
-      if(getState().selectedCards.length === 2) {
-        const cards = getData(getState());
-        const result = compareCards(cards[0], cards[1]);
+        let limitReached = checkLimitReached(gameDifficulty, attempts);
 
-        if(result) {
+        if(!limitReached) {
+          const cards = getData(getState());
+          const result = compareCards(cards[0], cards[1]);
+
+          if(result === true) {
+
+            dispatch({
+              type: UPDATE_CARDS
+            });
+
+            const inProgress = checkGameInProgress(getState().cardList);
+
+            if(!inProgress) {
+              dispatch({
+                type: UPDATE_GAME_STATE,
+                payload: GAME_STATES.GAME_WON
+              });
+            }
+
+          } else {
+            dispatch({
+              type: UPDATE_ATTEMPTS
+            });
+
+
+            attempts = getState().attempts;
+            gameDifficulty = getState().gameDifficulty;
+
+
+            limitReached = checkLimitReached(gameDifficulty, attempts);
+
+            if(limitReached) {
+              dispatch({
+                type: UPDATE_GAME_STATE,
+                payload: GAME_STATES.GAME_OVER
+              })
+            } else {
+              dispatch({
+                type: FLIP_CARDS
+              });
+            }
+
+
+          }
 
           dispatch({
-            type: UPDATE_CARDS
+            type: CLEAR_SELECTED_CARDS
           });
 
-        } else {
-          dispatch({
-            type: TOGGLE_CARD,
-            payload: cards[0].id
-          });
-
-          dispatch({
-            type: TOGGLE_CARD,
-            payload: cards[1].id
-          });
         }
 
-        dispatch({
-          type:   CLEAR_SELECTED_CARDS
-        })
-      }
-    }, 2000)
+      }, 1000)
+    }
 
   }
 }
 
-export function clearSelectedCards() {
-  return {
-    type: CLEAR_SELECTED_CARDS
-  }
-}
 
 /**
 *   Helper functions
 */
+
+function checkGameInProgress(cardList) {
+  const progress = cardList.filter(card => card.state !== CARD_STATES.INACTIVE);
+  return progress.length > 0 ? true : false;
+}
+
+function checkLimitReached(difficulty, attempts) {
+
+  if(difficulty === GAME_DIFFICULTY.EASY) {
+    return false;
+  } else if(attempts < MAX_ATTEMPTS[difficulty]){
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function getData(state) {
   const id1 = state.selectedCards[0];
