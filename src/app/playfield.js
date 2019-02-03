@@ -35,7 +35,6 @@ class Playfield extends React.Component {
     e.preventDefault();
 
     const currentSelectedCard = e.currentTarget.id;
-    console.log(currentSelectedCard);
 
     if(this.props.selectedCards.length < 1) {
       this.props.actions.updateSelectedCards(currentSelectedCard);

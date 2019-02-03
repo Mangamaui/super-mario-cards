@@ -17,3 +17,16 @@
   text-align: center;
   line-height: 180px;
 }
+
+fieldset {
+  border: none;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}

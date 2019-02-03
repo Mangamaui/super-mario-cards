@@ -1,62 +1,65 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import './App.css';
+import * as actionCreators from './app/actions';
 
-import Playfield from './app/playfield';
+// import Playfield from './app/playfield';
+import StartView from './app/views/startView';
+import GameView from './app/views/gameView';
+import GameOverView from './app/views/gameOverView';
+import GameWonView from './app/views/gameWonView';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+import { GAME_STATES } from './app/constants';
 
-    this.handleClick = this.handleClick.bind(this);
-    this.state = {view: this.switchView("start")};
+const App = (props) => {
 
-  }
+  const switchView = (view) => {
 
-  switchView (view) {
       switch(view) {
-        case "start":
-          return (
-            <div className="view">
-              <h2>Welcome to Silly Cardgame!</h2>
-              <button onClick={this.handleClick}>Start Game</button>
-            </div>
-          )
+        case GAME_STATES.START:
+          return (<StartView />)
 
-        case "game":
-          return (
-            <div className="view">
-              <h2>Find 2 identical cards</h2>
-              <Playfield />
-            </div>
-          )
+        case GAME_STATES.IN_PROGRESS:
+          return (<GameView />)
+
+        case GAME_STATES.GAME_OVER:
+          return (<GameOverView />)
+
+        case GAME_STATES.GAME_WON:
+          return (<GameWonView />)
 
         default:
           return (<div>404</div>);
       }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    const view = this.switchView("game");
+  const view = switchView(props.view);
 
-    this.setState({
-      view: view
-    });
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Silly Cardgame</h1>
+      </header>
+      <main className="main">
+        <div className="view">
+          {view}
+        </div>
+      </main>
+    </div>
+  );
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Silly Cardgame</h1>
-        </header>
-        <main className="main">
-          {this.state.view}
-        </main>
-      </div>
-    );
+}
+
+function mapStateToProps(state) {
+  return {
+    view: state.gameState
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {actions: bindActionCreators(actionCreators, dispatch) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
