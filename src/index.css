@@ -1,14 +1,37 @@
-body {
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans');
+
+* {
+  font-family: 'Black Han Sans', sans-serif;
+  letter-spacing: 1px;
   margin: 0;
+  outline: none;
   padding: 0;
+  text-transform: uppercase;
+}
+
+html {
+  font-size: 100%; /* =16px */
+  color:  white;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 5%;
-  width: 100%;
+h1 {
+  color: #333;
+  position: relative;
+  text-align: center;
+  z-index: 10;
+}
+
+.App {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }

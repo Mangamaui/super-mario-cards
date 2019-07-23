@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../actions';
 
+import Modal from '../modal';
+
 const GameWonView = (props) => {
 
   return (
-    <React.Fragment>
-      <h2>You won!</h2>
-      <p>:)</p>
-      <button className="" onClick={props.actions.createGame}>Rematch?</button>
-    </React.Fragment>
+    <Modal
+      className="endState"
+      title="You won!"
+      buttonText="Rematch?"
+      buttonHandler={props.actions.createGame}
+      />
   )
 }
 

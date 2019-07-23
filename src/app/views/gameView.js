@@ -5,7 +5,7 @@ import Playfield from '../playfield';
 const GameView = () => {
   return (
     <React.Fragment>
-      <h2>Find 2 identical cards</h2>
+      <h1>Find all the matching cards</h1>
       <Playfield />
     </React.Fragment>
   )

@@ -2,8 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Card from './card/index';
+import styled from 'styled-components';
+
+import Card from './card';
 import * as actionCreators from './actions';
+
+
+import { BEIGE, ORANGE } from './styling/colors';
+
 
 class Playfield extends React.Component {
   constructor(props) {
@@ -59,9 +65,9 @@ class Playfield extends React.Component {
     this.createCardList();
 
     return (
-      <div className="playfield">
+      <StyledPlayfield className="playfield">
         {this.state.cardList}
-      </div>
+      </StyledPlayfield>
     )
   }
 
@@ -79,3 +85,32 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playfield);
+
+
+const StyledPlayfield = styled.div`
+  background-color: ${ORANGE.normal}
+  border: 10px solid ${ORANGE.border};
+  border-radius: 30px;
+  color: ${BEIGE};
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 700px;
+  padding: 30px 30px;
+  box-shadow: inset 0px -9px 0px 0px ${ORANGE.shadow};
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;
+
+  &:before {
+    border-radius: 20px 20px 0 0;
+    box-shadow: inset 0px 10px 0px 0px ${ORANGE.light};
+    content: "";
+    display: block;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  `

@@ -22,7 +22,7 @@ const initialState = {
   gameState: GAME_STATES.START,
   attempts: 0,
   selectedCards: [],
-  cardList: generateCardList()
+  cardList: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -34,7 +34,8 @@ const rootReducer = (state = initialState, action) => {
     */
     case CREATE_GAME:
       console.log("create game");
-      return {...initialState};
+      const newList = generateCardList();
+      return {...initialState, cardList: newList};
 
     case SET_GAME_DIFFICULTY:
       console.log("set game difficulty");
