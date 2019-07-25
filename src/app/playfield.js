@@ -16,25 +16,13 @@ class Playfield extends React.Component {
     super(props);
 
     this.cardHandler = this.cardHandler.bind(this);
-
-    this.state = {
-      cardList: [],
-    };
   }
 
   createCardList() {
-    this.state.cardList.splice(0);
-
-    for(let i = 0; i < this.props.cardList.length; i++ ) {
-      const card = this.props.cardList[i];
-      const s = Math.floor(Date.now() / 1000);
-
-      const temp = <Card key={"kc"+ i +s} id={card.id} cardHandler={this.cardHandler}
-        sign={card.sign} pos={card.pos} state={card.state} />
-
-      this.state.cardList.push(temp);
-    }
-
+    return this.props.cardList.map((card, index) => {
+      return (<Card key={"kc"+ index } id={card.id} cardHandler={this.cardHandler}
+        sign={card.sign} pos={card.pos} state={card.state} />);
+    });
   }
 
   cardHandler(e) {
@@ -51,13 +39,12 @@ class Playfield extends React.Component {
     }
   }
 
-
   render() {
-    this.createCardList();
+    const list = this.createCardList();
 
     return (
       <StyledPlayfield className="playfield">
-        {this.state.cardList}
+        {list}
       </StyledPlayfield>
     )
   }
