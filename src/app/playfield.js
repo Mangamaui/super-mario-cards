@@ -52,15 +52,6 @@ class Playfield extends React.Component {
   }
 
 
-  /**
-  *   getPlayerData returns the player object based on a matching ID
-  */
-  getCardData(id) {
-      return this.props.cardList.find((card) => {
-          return card.id === id;
-      })
-  }
-
   render() {
     this.createCardList();
 
