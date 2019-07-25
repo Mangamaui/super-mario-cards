@@ -38,13 +38,12 @@ class StartView extends Component {
   render() {
 
     return (
-      <React.Fragment >
+      <React.Fragment>
         <Modal
           tabIndex={1}
           title="Choose a difficulty setting:"
           buttonText="Start game"
           buttonHandler={this.handleClick}
-          onKeyDown={this.keyboardHandler}
           >
           <fieldset>
             <RadioButton
@@ -71,16 +70,17 @@ class StartView extends Component {
   keyboardHandler(e) {
 
     if (e.key === "Enter") {
-    //  this.handleClick(e);
+      this.handleClick(e);
     }
 
-    if (e.key === "ArrowDown" || "ArrowUp"){
+    if (e.key === "ArrowDown" || e.key === "ArrowUp"){
       this.setNewDifficulty(e);
     }
 
   }
 
   setNewDifficulty(e) {
+    e.preventDefault();
     const difficulty = [ GAME_DIFFICULTY.EASY, GAME_DIFFICULTY.MEDIUM, GAME_DIFFICULTY.HARD];
 
     const list = document.querySelectorAll("input[type='radio']");
