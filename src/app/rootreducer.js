@@ -137,15 +137,18 @@ function getRandom(max) {
 }
 
 function generateCardList() {
+  const cardSigns = JSON.parse(JSON.stringify(CARD_TYPES));
   const cardLimit = 18;
   let signLimit = 6;
-  const list = [];
+  let cardLimit2 = Array.from(Array(18).keys());
 
+  const list = [];
 
   for(let i = 0; i < cardLimit; i++ ) {
     let n = getRandom(signLimit);
+    let s = getRandom(cardLimit2.length);
 
-    let sign = CARD_TYPES[n][0];
+    let sign = cardSigns[n][0];
     const card = {
       key: `k${i}`,
       id: `id${i}`,
@@ -154,12 +157,14 @@ function generateCardList() {
       state: CARD_STATES.HIDDEN
     }
 
-    list.push(card);
+    list[cardLimit2[s]] = card;
 
-    CARD_TYPES[n][1] -=1;
+    cardLimit2.splice(s,1);
 
-    if(CARD_TYPES[n][1] === 0) {
-      CARD_TYPES.splice(n, 1);
+    cardSigns[n][1] -=1;
+
+    if(cardSigns[n][1] === 0) {
+      cardSigns.splice(n, 1);
       signLimit -=1;
     }
 
