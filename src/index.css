@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans');
-
-
 @font-face {
   font-family: 'supermariocards-icons';
-  src:  url('assets/fonts/supermariocards-icons.eot?rl4js2');
-  src:  url('assets/fonts/supermariocards-icons.eot?rl4js2#iefix') format('embedded-opentype'),
-    url('assets/fonts/supermariocards-icons.ttf?rl4js2') format('truetype'),
-    url('assets/fonts/supermariocards-icons.woff?rl4js2') format('woff'),
-    url('assets/fonts/supermariocards-icons.svg?rl4js2#supermariocards-icons') format('svg');
+  src:  url('assets/fonts/supermariocards-icons.eot?d0efii');
+  src:  url('assets/fonts/supermariocards-icons.eot?d0efii#iefix') format('embedded-opentype'),
+    url('assets/fonts/supermariocards-icons.ttf?d0efii') format('truetype'),
+    url('assets/fonts/supermariocards-icons.woff?d0efii') format('woff'),
+    url('assets/fonts/supermariocards-icons.svg?d0efii#supermariocards-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-close:before {
+  content: "\e903";
+}
 .icon-muted:before {
   content: "\e900";
 }
@@ -36,7 +37,6 @@
 .icon-help:before {
   content: "\e902";
 }
-
 
 
 * {
