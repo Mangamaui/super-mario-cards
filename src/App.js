@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import Background from './app/styling/background';
 import Counter from './app/counter';
-import Button from './app/styling/button';
+import { Button } from './app/styling/button';
 
 import './App.scss';
 import * as actionCreators from './app/actions';
