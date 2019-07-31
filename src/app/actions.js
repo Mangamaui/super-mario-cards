@@ -1,3 +1,4 @@
+import {Howl} from 'howler';
 import {
   CREATE_GAME,
   SET_GAME_DIFFICULTY,
@@ -6,14 +7,16 @@ import {
   FLIP_CARDS,
   UPDATE_CARDS,
   ADD_SELECTED_CARD,
-  CLEAR_SELECTED_CARDS
+  CLEAR_SELECTED_CARDS,
+  TOGGLE_SOUND
   } from './actionTypes';
 
 import {
   CARD_STATES,
   GAME_STATES,
   GAME_DIFFICULTY,
-  MAX_ATTEMPTS
+  MAX_ATTEMPTS,
+  MUSIC
   } from './constants';
 
 
@@ -27,6 +30,13 @@ export function setGameDifficulty(difficulty) {
   return {
     type: SET_GAME_DIFFICULTY,
     payload: difficulty
+  }
+}
+
+export function updatePreviousGameState(gameState) {
+  return {
+    type: UPDATE_PREVIOUS_GAME_STATE,
+    payload: gameState
   }
 }
 
@@ -55,6 +65,7 @@ export function updateSelectedCards(id) {
         if(!limitReached) {
           const cards = getData(getState());
           const result = compareCards(cards[0], cards[1]);
+          playSounds(result);
 
           if(result === true) {
 
@@ -109,6 +120,12 @@ export function updateSelectedCards(id) {
   }
 }
 
+export function toggleSound() {
+  return {
+    type: TOGGLE_SOUND
+  }
+}
+
 
 /**
 *   Helper functions
@@ -150,4 +167,19 @@ function getCard(list, id) {
   return list.find((card) => {
     return card.id === id;
   });
+}
+
+function playSounds(isMatch) {
+  const sound = isMatch ? MUSIC.MATCH : MUSIC.MISMATCH
+
+  const soundMatching = new Howl({
+    src: [
+      `../assets/sounds/${sound.src}`
+    ],
+    loop: sound.loop,
+    volume: 1,
+    autoplay: true
+  });
+
+  soundMatching.play();
 }

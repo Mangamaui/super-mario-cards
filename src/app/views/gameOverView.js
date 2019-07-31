@@ -4,16 +4,22 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../actions';
 import Modal from '../modal';
+import Audio from '../audio';
+
+import { MUSIC } from '../constants';
 
 const GameOverView = (props) => {
 
   return (
-    <Modal
-      className="endState"
-      title="You lost!"
-      buttonText="Rematch?"
-      buttonHandler={props.actions.createGame}
-      />
+    <React.Fragment>
+      <Modal
+        className="endState"
+        title="You lost!"
+        buttonText="Rematch?"
+        buttonHandler={props.actions.createGame}
+        />
+      <Audio sound={MUSIC.GAME_OVER} />
+    </React.Fragment>
   )
 }
 

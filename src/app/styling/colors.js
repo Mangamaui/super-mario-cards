@@ -15,3 +15,8 @@ export const BLUE = {
   normal: "#72BDD8",
   shadow: "#4995B0"
 };
+
+export const GREEN = {
+  normal: "#054419",
+  shadow: "#002B00"
+}

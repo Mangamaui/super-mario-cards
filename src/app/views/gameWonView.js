@@ -5,16 +5,22 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions';
 
 import Modal from '../modal';
+import Audio from '../audio';
+
+import { MUSIC } from '../constants';
 
 const GameWonView = (props) => {
 
   return (
-    <Modal
-      className="endState"
-      title="You won!"
-      buttonText="Rematch?"
-      buttonHandler={props.actions.createGame}
-      />
+    <React.Fragment>
+      <Modal
+        className="endState"
+        title="You won!"
+        buttonText="Rematch?"
+        buttonHandler={props.actions.createGame}
+        />
+      <Audio sound={MUSIC.GAME_WON} />
+    </React.Fragment>
   )
 }
 

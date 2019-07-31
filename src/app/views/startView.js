@@ -6,12 +6,14 @@ import * as actionCreators from '../actions';
 
 import {
   GAME_DIFFICULTY,
-  GAME_STATES
+  GAME_STATES,
+  MUSIC
   } from '../constants';
 
 // import styled from 'styled-components';
 import Modal from '../modal';
 import RadioButton from '../radioButton';
+import Audio from '../audio';
 
 
 class StartView extends Component {
@@ -64,6 +66,7 @@ class StartView extends Component {
               />
           </fieldset>
         </Modal>
+        <Audio sound={MUSIC.START} />
       </React.Fragment>);
   }
 
@@ -129,6 +132,7 @@ class StartView extends Component {
     this.props.actions.setGameDifficulty(this.state.selectedOption);
     this.props.actions.updateGameState(GAME_STATES.IN_PROGRESS);
   }
+
 }
 
 

@@ -7,7 +7,8 @@ import {
   FLIP_CARDS,
   UPDATE_CARDS,
   ADD_SELECTED_CARD,
-  CLEAR_SELECTED_CARDS
+  CLEAR_SELECTED_CARDS,
+  TOGGLE_SOUND
   } from './actionTypes';
 
 import {
@@ -22,7 +23,8 @@ const initialState = {
   gameState: GAME_STATES.START,
   attempts: 0,
   selectedCards: [],
-  cardList: []
+  cardList: [],
+  soundMuted: true
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -35,12 +37,20 @@ const rootReducer = (state = initialState, action) => {
     case CREATE_GAME:
       console.log("create game");
       const newList = generateCardList();
-      return {...initialState, cardList: newList};
+      return {...initialState,
+        cardList: newList,
+        soundMuted: state.soundMuted
+      };
 
     case SET_GAME_DIFFICULTY:
       console.log("set game difficulty");
       const difficulty = action.payload;
       return {...state, gameDifficulty: difficulty};
+
+    case TOGGLE_SOUND:
+      console.log("toggle sound state");
+      const soundState = state.soundMuted ? false : true;
+      return {...state, soundMuted: soundState};
 
     case UPDATE_GAME_STATE:
       console.log("update game state");

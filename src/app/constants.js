@@ -30,3 +30,30 @@ export const MAX_ATTEMPTS = {
   medium: 5,
   hard: 3
 }
+
+export const MUSIC = {
+  START: {
+    src: "smb2-character-select.mp3",
+    loop: true
+  },
+  IN_PROGRESS: {
+    src: "smb3-wm1.mp3",
+    loop: true
+  },
+  GAME_OVER: {
+    src: "smb3_game_over.wav",
+    loop: false
+  },
+  GAME_WON: {
+    src: "smb3_level_clear.wav",
+    loop: false
+  },
+  MATCH: {
+    src: "match.wav",
+    loop: false
+  },
+  MISMATCH: {
+    src: "mismatch.wav",
+    loop: false
+  }
+}
