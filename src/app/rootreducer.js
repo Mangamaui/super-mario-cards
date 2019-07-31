@@ -2,6 +2,7 @@ import {
   CREATE_GAME,
   SET_GAME_DIFFICULTY,
   UPDATE_GAME_STATE,
+  UPDATE_PREVIOUS_GAME_STATE,
   UPDATE_ATTEMPTS,
   CREATE_CARDLIST,
   FLIP_CARDS,
@@ -21,6 +22,7 @@ import {
 const initialState = {
   gameDifficulty: GAME_DIFFICULTY.EASY,
   gameState: GAME_STATES.START,
+  previousGameState: null,
   attempts: 0,
   selectedCards: [],
   cardList: [],
@@ -51,6 +53,10 @@ const rootReducer = (state = initialState, action) => {
       console.log("toggle sound state");
       const soundState = state.soundMuted ? false : true;
       return {...state, soundMuted: soundState};
+
+    case UPDATE_PREVIOUS_GAME_STATE:
+      console.log("update game state");
+      return {...state, previousGameState: action.payload};
 
     case UPDATE_GAME_STATE:
       console.log("update game state");

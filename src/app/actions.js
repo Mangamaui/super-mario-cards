@@ -1,7 +1,9 @@
 import {Howl} from 'howler';
+
 import {
   CREATE_GAME,
   SET_GAME_DIFFICULTY,
+  UPDATE_PREVIOUS_GAME_STATE,
   UPDATE_GAME_STATE,
   UPDATE_ATTEMPTS,
   FLIP_CARDS,

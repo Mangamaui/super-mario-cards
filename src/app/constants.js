@@ -14,6 +14,7 @@ export const CARD_TYPES = [
 ];
 
 export const GAME_STATES = {
+  HELP: "help",
   START: "start",
   IN_PROGRESS: "inProgress",
   GAME_OVER: "gameOver",

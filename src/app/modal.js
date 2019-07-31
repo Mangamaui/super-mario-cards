@@ -9,7 +9,7 @@ function Modal(props) {
 
   return (
     <React.Fragment>
-      <StyledModal>
+      <StyledModal className="modal">
         <h2 className={props.className}>{props.title}</h2>
         {props.children}
         <Button type="submit" className="button" onClick={props.buttonHandler}
