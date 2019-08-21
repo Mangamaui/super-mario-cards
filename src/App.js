@@ -147,7 +147,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 const HeaderHeight = "70px";
 
 const Header = styled.header`
-  background-color: white;
+  background-color: transparent;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
