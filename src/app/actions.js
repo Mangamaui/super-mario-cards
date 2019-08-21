@@ -116,7 +116,7 @@ export function updateSelectedCards(id) {
 
         }
 
-      }, 1000)
+      }, 600)
     }
 
   }
