@@ -11,7 +11,6 @@ import { Button } from './app/styling/button';
 import './App.scss';
 import * as actionCreators from './app/actions';
 
-import SplashView from './app/views/splashView';
 import StartView from './app/views/startView';
 import GameView from './app/views/gameView';
 import GameOverView from './app/views/gameOverView';
@@ -102,8 +101,8 @@ const App = (props) => {
   const view = switchView(props.view);
   const header = switchHeader(props.view);
 
-  const baseView = (
-    <React.Fragment>
+  return (
+    <div className="App">
       <Header className="App-header">
         {header}
       </Header>
@@ -111,19 +110,6 @@ const App = (props) => {
         <Background />
         {view}
       </Main>
-    </React.Fragment>
-  );
-
-  const splash = (
-    <React.Fragment>
-      <Background />
-      <SplashView />
-    </React.Fragment>
-  )
-
-  return (
-    <div className="App">
-      {baseView}
     </div>
   );
 
