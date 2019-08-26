@@ -2,7 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import styled from 'styled-components';
+
 import * as actionCreators from '../actions';
+
+import '../../scss/firework.scss';
 
 import Modal from '../modal';
 import Audio from '../audio';
@@ -13,6 +17,10 @@ const GameWonView = (props) => {
 
   return (
     <React.Fragment>
+      <div className="sparks">
+        <div className="before"></div>
+        <div className="after"></div>
+      </div>
       <Modal
         className="endState"
         title="You won!"
