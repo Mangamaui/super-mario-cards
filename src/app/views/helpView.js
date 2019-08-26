@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { BEIGE, ORANGE } from '../styling/colors';
+import { CARD_SIGNS } from '../constants';
 
 const HelpView = () => {
   return (
@@ -20,9 +21,8 @@ const HelpView = () => {
             <li><span>Medium</span> - max 5 attempts</li>
             <li><span>Hard</span> - max 3 attempts</li>
           </ul>
-          <img src={`${process.env.PUBLIC_URL}assets/super-mario-cards-flower.svg`}
-            className="signature-icon"
-            width="80" height="80" alt="ice-flower" />
+          <img src={CARD_SIGNS.flower} className="signature-icon"
+          width="80" height="80" alt="ice-flower" />
       </HelpModal>
     </React.Fragment>
   )
