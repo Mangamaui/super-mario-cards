@@ -42,8 +42,8 @@ const HelpModal = styled.div`
   padding: 30px 20px 40px 20px;
   box-shadow: inset 0px -9px 0px 0px ${ORANGE.shadow};
   top: 40%;
-  transform: translate(-50%, -50%);
-  left: 50%;
+  transform: translateY(-50%);
+  text-align: left;
 
   &:before {
     border-radius: 20px 20px 0 0;
