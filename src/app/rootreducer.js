@@ -1,3 +1,5 @@
+import { debugTools } from '../debugTools';
+
 import {
   CREATE_GAME,
   SET_GAME_DIFFICULTY,
@@ -37,7 +39,7 @@ const rootReducer = (state = initialState, action) => {
     *   Create Game
     */
     case CREATE_GAME:
-      console.log("create game");
+      debugTools.log("create game");
       const newList = generateCardList();
       return {...initialState,
         cardList: newList,
@@ -45,35 +47,35 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SET_GAME_DIFFICULTY:
-      console.log("set game difficulty");
+      debugTools.log("set game difficulty");
       const difficulty = action.payload;
       return {...state, gameDifficulty: difficulty};
 
     case TOGGLE_SOUND:
-      console.log("toggle sound state");
+      debugTools.log("toggle sound state");
       const soundState = state.soundMuted ? false : true;
       return {...state, soundMuted: soundState};
 
     case UPDATE_PREVIOUS_GAME_STATE:
-      console.log("update game state");
+      debugTools.log("update game state");
       return {...state, previousGameState: action.payload};
 
     case UPDATE_GAME_STATE:
-      console.log("update game state");
+      debugTools.log("update game state");
       return {...state, gameState: action.payload};
 
     case UPDATE_ATTEMPTS:
-      console.log("update attempts");
+      debugTools.log("update attempts");
       const attempts = state.attempts + 1;
       return {...state, attempts: attempts};
 
     case CREATE_CARDLIST:
-      console.log("create cardlist");
+      debugTools.log("create cardlist");
       const cardList = generateCardList();
       return {...state, cardList: cardList};
 
     case FLIP_CARDS:
-      console.log("flip cards");
+      debugTools.log("flip cards");
       const flippedCards =  state.cardList.map(card => {
         return (card.id === state.selectedCards[0]
             || card.id === state.selectedCards[1])
@@ -84,7 +86,7 @@ const rootReducer = (state = initialState, action) => {
       return {...state, cardList: flippedCards};
 
     case UPDATE_CARDS:
-      console.log("update cards");
+      debugTools.log("update cards");
       const newCardList = state.cardList.map(card => {
         return (card.id === state.selectedCards[0]
             || card.id === state.selectedCards[1])
@@ -95,7 +97,7 @@ const rootReducer = (state = initialState, action) => {
       return {...state, cardList: newCardList};
 
     case ADD_SELECTED_CARD:
-      console.log("add a selected card");
+      debugTools.log("add a selected card");
 
       // add the id of the selected card to the selectedCardsList
       const newSelectedCardList = [...state.selectedCards]
@@ -115,7 +117,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case CLEAR_SELECTED_CARDS:
-      console.log("cleared selected cards");
+      debugTools.log("cleared selected cards");
       const emptyArray = []
       return {...state, selectedCards: emptyArray};
 
