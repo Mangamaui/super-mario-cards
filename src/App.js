@@ -10,6 +10,7 @@ import { Button } from './app/styling/button';
 
 import * as actionCreators from './app/actions';
 
+import SplashView from './app/views/splashView';
 import StartView from './app/views/startView';
 import GameView from './app/views/gameView';
 import GameOverView from './app/views/gameOverView';
@@ -34,9 +35,15 @@ const App = (props) => {
     props.actions.updateGameState(props.previousView);
   }
 
+  const splashHandler = (e) => {
+    props.actions.updateGameState(GAME_STATES.START);
+  }
+
   const switchView = (view) => {
 
       switch(view) {
+        case GAME_STATES.SPLASH:
+          return (<SplashView handler={splashHandler} />);
         case GAME_STATES.HELP:
           return (<HelpView />)
 
@@ -61,14 +68,14 @@ const App = (props) => {
 
     switch(view) {
       case GAME_STATES.HELP:
-      return (
-        <React.Fragment>
-          <StyledLogo className="logo" />
-          <Button className="close-btn button" onClick={closeHandler}>
-            <i className="icon icon-close"></i>
-          </Button>
-        </React.Fragment>
-      );
+        return (
+          <React.Fragment>
+            <StyledLogo className="logo" />
+            <Button className="close-btn button" onClick={closeHandler}>
+              <i className="icon icon-close"></i>
+            </Button>
+          </React.Fragment>
+        );
 
       case GAME_STATES.START:
       case GAME_STATES.GAME_OVER:
@@ -100,8 +107,8 @@ const App = (props) => {
   const view = switchView(props.view);
   const header = switchHeader(props.view);
 
-  return (
-    <div className="App">
+  const appLayout = (
+    <React.Fragment>
       <Header className="App-header">
         {header}
       </Header>
@@ -109,6 +116,14 @@ const App = (props) => {
         <Background />
         {view}
       </Main>
+    </React.Fragment>
+  );
+
+  const loadedView = props.view === GAME_STATES.SPLASH ? view : appLayout;
+
+  return (
+    <div className="App">
+      {loadedView}
     </div>
   );
 
@@ -158,6 +173,7 @@ const Main = styled.main`
   z-index: 0;
   padding: 0 20px;
   box-sizing: border-box;
+  text-align: center;
 `
 const StyledLogo = styled(Logo)`
   position: relative;

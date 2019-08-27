@@ -23,7 +23,7 @@ import {
 
 const initialState = {
   gameDifficulty: GAME_DIFFICULTY.EASY,
-  gameState: GAME_STATES.START,
+  gameState: GAME_STATES.SPLASH,
   previousGameState: null,
   attempts: 0,
   selectedCards: [],
@@ -42,6 +42,7 @@ const rootReducer = (state = initialState, action) => {
       debugTools.log("create game");
       const newList = generateCardList();
       return {...initialState,
+        gameState: GAME_STATES.START,
         cardList: newList,
         soundMuted: state.soundMuted
       };

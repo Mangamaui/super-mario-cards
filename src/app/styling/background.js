@@ -5,7 +5,7 @@ import { ReactComponent as FullBackground } from '../../assets/background.svg';
 
 const Background = (props) => {
   return (
-    <BackgroundScene />
+    <BackgroundScene className="background" />
   )
 }
 
