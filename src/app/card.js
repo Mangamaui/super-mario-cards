@@ -75,7 +75,6 @@ class Card extends React.Component {
 
   render() {
     const card = this.setCard();
-    console.log(this.props);
 
     return (
       <React.Fragment>
@@ -94,6 +93,10 @@ const StyledCard = styled.div`
   height: 154px;
   text-align: center;
   position: relative;
+
+  &:not(.card--inactive){
+    cursor: pointer;
+  }
 
   .card__side {
     position: absolute;
