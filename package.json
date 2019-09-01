@@ -1,15 +1,18 @@
 {
-  "name": "silly-cardgame",
+  "name": "super-mario-cards",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "howler": "^2.1.2",
+    "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "2.1.3",
+    "react-scripts": "^2.1.8",
     "redux": "^4.0.1",
     "redux-devtools": "^3.5.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
