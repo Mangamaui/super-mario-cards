@@ -13,9 +13,6 @@ html {
 }
 
 body {
-  height: 100vh;
-  overflow: hidden;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -29,7 +26,7 @@ h1 {
 
 .App {
   position: relative;
-  height: 100vh;
+  min-height: 500px;
   width: 100vw;
   overflow: hidden;
 }

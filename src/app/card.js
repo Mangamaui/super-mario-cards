@@ -21,12 +21,12 @@ class Card extends React.Component {
 
       case CARD_STATES.HIDDEN:
         card = (
-          <StyledCard className={`card`} id={this.props.id} onClick={this.props.cardHandler}>
+          <StyledCard className="card" id={this.props.id} onClick={this.props.cardHandler}>
             <div className="card__side card__side--front">
-              <img src={CARD_SIGNS.spades} alt="spades-decoration" />
             </div>
-            <div className="card__side card__side--back">
-              <img src={CARD_SIGNS[this.props.sign]} alt={this.props.sign} />
+            <div className="card__side card__side--back"
+              style={{ backgroundImage: "url(" + CARD_SIGNS[this.props.sign] + ")" }}
+            >
             </div>
           </StyledCard>
         );
@@ -34,12 +34,12 @@ class Card extends React.Component {
 
       case CARD_STATES.VISIBLE:
         card = (
-          <StyledCard className={`card card--visible`} id={this.props.id} onClick={this.props.cardHandler}>
+          <StyledCard className="card card--visible" id={this.props.id} >
             <div className="card__side card__side--front">
-              <img src={CARD_SIGNS.spades} alt="spades-decoration" />
             </div>
-            <div className="card__side card__side--back">
-            <img src={CARD_SIGNS[this.props.sign]} alt={this.props.sign} />
+            <div className="card__side card__side--back"
+              style={{ backgroundImage: "url(" + CARD_SIGNS[this.props.sign] + ")" }}
+            >
             </div>
           </StyledCard>
         );
@@ -47,12 +47,13 @@ class Card extends React.Component {
 
       case CARD_STATES.INACTIVE:
         card = (
-          <StyledCard className={`card card--inactive`} id={this.props.id}>
+          <StyledCard className="card card--inactive" id={this.props.id}>
             <div className="card__side card__side--front">
-              <img src={CARD_SIGNS.spades} alt="spades-decoration" />
+
             </div>
-            <div className="card__side card__side--back">
-              <img src={CARD_SIGNS[this.props.sign]} alt={this.props.sign} />
+            <div className="card__side card__side--back"
+              style={{ backgroundImage: "url(" + CARD_SIGNS[this.props.sign] + ")" }}
+            >
             </div>
           </StyledCard>
         );
@@ -60,12 +61,13 @@ class Card extends React.Component {
 
         default:
           card = (
-            <StyledCard className={`card`} id={this.props.id} onClick={this.props.cardHandler}>
+            <StyledCard className="card" id={this.props.id} onClick={this.props.cardHandler}>
               <div className="card__side card__side--front">
-                <img src={CARD_SIGNS.spades} alt="spades-decoration" />
+
               </div>
-              <div className="card__side card__side--back">
-                <img src={CARD_SIGNS[this.props.sign]} alt={this.props.sign} />
+              <div className="card__side card__side--back"
+                style={{ backgroundImage: "url(" + CARD_SIGNS[this.props.sign] + ")" }}
+              >
               </div>
             </StyledCard>
           );
@@ -87,12 +89,10 @@ class Card extends React.Component {
 const StyledCard = styled.div`
   position: relative;
   display: block;
-  font-size: 18px;
-  margin: 5px;
-  width: 106px;
-  height: 154px;
+  font-size: 0;
+  width: 100%;
   text-align: center;
-  position: relative;
+  padding-top: calc(77 / 52.5 * 100%);
 
   &:not(.card--inactive){
     cursor: pointer;
@@ -107,9 +107,10 @@ const StyledCard = styled.div`
     backface-visibility: hidden;
     border: 3px solid ${BLACK};
     border-radius: 10px;
+    box-sizing: border-box;
 
     &:not(.card--inactive) {
-      transition: all .6s ease;
+      transition: transform .6s ease;
 
       &--back {
         transform: rotateY(180deg);
@@ -118,11 +119,17 @@ const StyledCard = styled.div`
 
     &--front {
       background-color: white;
+      background-image: url(${CARD_SIGNS.spades});
+      background-repeat: no-repeat;
+      background-size: 70% auto;
+      background-position: center;
     }
 
     &--back {
       background-color: white;
       transform: rotateY(180deg);
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
   }

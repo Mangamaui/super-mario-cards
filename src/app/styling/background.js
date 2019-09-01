@@ -19,4 +19,5 @@ const BackgroundScene = styled(FullBackground)`
   bottom: 0;
   transform: translateX(-50%);
   z-index: 0;
+  min-height: 500px;
 `

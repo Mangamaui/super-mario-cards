@@ -174,6 +174,7 @@ const Main = styled.main`
   padding: 0 20px;
   box-sizing: border-box;
   text-align: center;
+  min-height: 500px;
 `
 const StyledLogo = styled(Logo)`
   position: relative;

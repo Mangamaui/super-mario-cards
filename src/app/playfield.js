@@ -64,21 +64,28 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playfield);
 
-
 const StyledPlayfield = styled.div`
   background-color: ${ORANGE.normal}
   border: 10px solid ${ORANGE.border};
   border-radius: 30px;
   color: ${BEIGE};
-  display: flex;
-  flex-wrap: wrap;
   position: relative;
-  width: 700px;
-  padding: 30px 30px;
+  width: 85vh;
+  height: 61vh;
+  padding: 30px 30px 30px 30px;
   box-shadow: inset 0px -9px 0px 0px ${ORANGE.shadow};
   left: 50%;
   transform: translateX(-50%);
   top: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(min-content, max-content);
+  grid-gap: 5px 5px;
+  min-height: 360px;
+  min-width: 500px;
+  max-height: 600px;
+  max-width: 834px;
+
 
   &:before {
     border-radius: 20px 20px 0 0;

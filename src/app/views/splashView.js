@@ -52,6 +52,10 @@ const Main = styled.main`
   padding: ${HeaderHeight} 20px 0 20px;
   box-sizing: border-box;
   text-align: center;
+
+  .background {
+    bottom: initial;
+  }
 `
 const StyledLogo = styled(Logo)`
   position: relative;

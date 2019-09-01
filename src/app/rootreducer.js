@@ -28,7 +28,7 @@ const initialState = {
   attempts: 0,
   selectedCards: [],
   cardList: [],
-  soundMuted: false
+  soundMuted: true
 }
 
 const rootReducer = (state = initialState, action) => {
